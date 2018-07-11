@@ -26,6 +26,12 @@ RUN apt update && \
     && apt autoclean \
     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
 
+WORKDIR /opt
+RUN wget -O - https://github.com/jsh58/DMRfinder/archive/v0.3.tar.gz | \
+    tar xzf - && \
+    ln -s DMRfinder* DMRfinder
+ENV PATH="/opt/DMRfinder/:${PATH}"
+
 # Setup of /data volume and set it as working directory
 VOLUME /data
 WORKDIR /data
